@@ -1,0 +1,34 @@
+{
+  "name": "snipshare-vscode-plugin",
+  "displayName": "SnipShare",
+  "description": "Zero-cost, GitHub Gists–powered snippet manager",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "activationEvents": [
+    "onCommand:snipshare.searchSnippet",
+    "onCommand:snipshare.createSnippet"
+  ],
+  "main": "./src/extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "echo 'No compilation needed for JS'",
+    "test": "echo 'No tests yet'"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "snipshare.searchSnippet",
+        "title": "SnipShare: Search Snippet"
+      },
+      {
+        "command": "snipshare.createSnippet",
+        "title": "SnipShare: Create Snippet"
+      }
+    ]
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}
