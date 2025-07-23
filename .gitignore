@@ -1,0 +1,13 @@
+# Node modules
+node_modules/
+
+# VS Code configs
+.vscode/
+
+# Build output
+dist/
+coverage/
+
+# Logs and env
+*.log
+.env
