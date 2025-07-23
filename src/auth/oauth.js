@@ -1,5 +1,7 @@
 const vscode = require('vscode');
 const fetch = require('node-fetch');
+const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+
 
 /**
  * Initiate GitHub Device Flow
@@ -41,7 +43,7 @@ async function pollForToken(clientId, deviceCode, interval) {
  * Run OAuth flow and store token
  */
 async function authenticate(context) {
-  const clientId = '<YOUR_GITHUB_APP_CLIENT_ID>';
+  const clientId = GITHUB_CLIENT_ID;
   const { device_code, user_code, verification_uri, interval } = await startDeviceFlow(clientId);
 
   // Prompt user to verify

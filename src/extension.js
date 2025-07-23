@@ -1,3 +1,5 @@
+
+require('dotenv').config();
 const vscode = require('vscode');
 const { registerCommands } = require('./commands');
 const { authenticate } = require('./auth/oauth');
