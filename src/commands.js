@@ -1,41 +1,50 @@
 const vscode = require('vscode');
-const storageManager = require('./services/storageManager');
+const { init, search, create } = require('./services/storageManager');
 
 /**
- * Register all extension commands
- * @param {vscode.ExtensionContext} context
+ * @param {import('vscode').ExtensionContext} context
  */
-  async function registerCommands(context) {
+async function registerCommands(context) {
+  console.log('➡️ registerCommands()');
 
-    // Initialize storage
-  await storageManager.init();
+  await init();
 
-  // Search Snippet
-  let searchCmd = vscode.commands.registerCommand('snipshare.searchSnippet', async () => {
-    const query = await vscode.window.showInputBox({ prompt: 'Search for a snippet' });
-    if (!query) return;
-     const results = await storageManager.search(query);
-    const picks = results.map(s => ({ label: s.description, detail: Object.keys(s.files)[0], id: s.id }));
-    const choice = await vscode.window.showQuickPick(picks, { placeHolder: 'Select snippet to insert' });
-    if (!choice) return;
-    const snippet = results.find(s => s.id === choice.id);
-    const content = Object.values(snippet.files)[0].content;
-    const editor = vscode.window.activeTextEditor;
-    if (editor) editor.insertSnippet(new vscode.SnippetString(content));
-    vscode.window.showInformationMessage(`Searching for: ${query}`);
-  });
+  const searchCmd = vscode.commands.registerCommand(
+    'snipshare.searchSnippet',
+    async () => {
+      console.log('🔍 searchSnippet invoked');
+      const q = await vscode.window.showInputBox({ prompt: 'Search for a snippet' });
+      if (!q) return;
 
-  // Create Snippet
-  let createCmd = vscode.commands.registerCommand('snipshare.createSnippet', async () => {
-    const description = await vscode.window.showInputBox({ prompt: 'Snippet description' });
-    if (!description) return;
-    const content = await vscode.window.showInputBox({ prompt: 'Snippet content' });
-    if (content === undefined) return;
-    const files = { 'snippet.txt': { content } };
-    await storageManager.create({ description, files });
-    vscode.window.showInformationMessage('Snippet created');
-    vscode.window.showInformationMessage(`Creating snippet: ${title}`);
-  });
+      const results = await search(q);
+      const picks = results.map(s => ({
+        label: s.description,
+        detail: Object.keys(s.files)[0],
+        id: s.id
+      }));
+      const choice = await vscode.window.showQuickPick(picks, { placeHolder: 'Select snippet' });
+      if (!choice) return;
+
+      const snippet = results.find(s => s.id === choice.id);
+      const content = Object.values(snippet.files)[0].content;
+      const editor = vscode.window.activeTextEditor;
+      if (editor) editor.insertSnippet(new vscode.SnippetString(content));
+    }
+  );
+
+  const createCmd = vscode.commands.registerCommand(
+    'snipshare.createSnippet',
+    async () => {
+      console.log('➕ createSnippet invoked');
+      const desc = await vscode.window.showInputBox({ prompt: 'Snippet description' });
+      if (!desc) return;
+      const cont = await vscode.window.showInputBox({ prompt: 'Snippet content' });
+      if (cont === undefined) return;
+
+      await create({ description: desc, files: { 'snippet.txt': { content: cont } } });
+      vscode.window.showInformationMessage('Snippet created');
+    }
+  );
 
   context.subscriptions.push(searchCmd, createCmd);
 }

@@ -1,24 +1,28 @@
+// Remove any `import` or `export default`
 
-require('dotenv').config();
-const vscode = require('vscode');
-const { registerCommands } = require('./commands');
+// Top‑level log to prove loading
+console.log('🔧 SnipShare extension.js loaded');
+
 const { authenticate } = require('./auth/oauth');
+const { registerCommands } = require('./commands');
 
 /**
- * @param {vscode.ExtensionContext} context
+ * @param {import('vscode').ExtensionContext} context
  */
 async function activate(context) {
-     let token = context.globalState.get('githubToken');
+  console.log('🔌 SnipShare activate() running');
+
+  let token = context.globalState.get('githubToken');
   if (!token) {
     await authenticate(context);
   }
-  console.log('🔌 SnipShare extension activated');
-  registerCommands(context);
+
+  // await so commands are definitely registered
+  await registerCommands(context);
 }
 
 function deactivate() {
-  console.log('❌ SnipShare extension deactivated');
+  console.log('❌ SnipShare deactivate()');
 }
 
 module.exports = { activate, deactivate };
-
