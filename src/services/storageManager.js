@@ -7,11 +7,35 @@ class StorageManager {
     this.fallback = indexedDBService;
   }
 
+  /**
+   * Initialize storage: ensure fallback and sync primary, errors are caught
+   */
   async init() {
-    await this.fallback.init();
-    const gists = await this.primary.listGists();
+    // Initialize IndexedDB without failing the entire flow
+    try {
+      await this.fallback.init();
+    } catch (err) {
+      console.error('⚠️ IndexedDB init failed, continuing without offline cache:', err);
+    }
+
+    // Sync from primary gists
+    let gists = [];
+    try {
+      gists = await this.primary.listGists();
+    } catch (err) {
+      console.error('❌ Could not list Gists:', err);
+    }
+
     for (const gist of gists) {
-      await this.fallback.saveSnippet({ id: gist.id, description: gist.description, files: gist.files });
+      try {
+        await this.fallback.saveSnippet({
+          id: gist.id,
+          description: gist.description,
+          files: gist.files
+        });
+      } catch (err) {
+        console.error(`⚠️ Failed to cache gist ${gist.id}:`, err);
+      }
     }
   }
 
@@ -30,21 +54,37 @@ class StorageManager {
   async create({ description, files }) {
     const gist = await this.primary.createGist({ description, files, public: false });
     const snippet = { id: gist.id, description: gist.description, files: gist.files };
-    await this.fallback.saveSnippet(snippet);
+    try {
+      await this.fallback.saveSnippet(snippet);
+    } catch (err) {
+      console.error(`⚠️ Failed to cache new snippet ${snippet.id}:`, err);
+    }
     return snippet;
   }
 
   async update(id, { description, files }) {
     const gist = await this.primary.updateGist(id, { description, files });
     const snippet = { id: gist.id, description: gist.description, files: gist.files };
-    await this.fallback.saveSnippet(snippet);
+    try {
+      await this.fallback.saveSnippet(snippet);
+    } catch (err) {
+      console.error(`⚠️ Failed to update cache for snippet ${id}:`, err);
+    }
     return snippet;
   }
 
   async delete(id) {
-    await this.primary.deleteGist(id);
-    await this.fallback.deleteSnippet(id);
+    try {
+      await this.primary.deleteGist(id);
+    } catch (err) {
+      console.error(`❌ Failed to delete gist ${id}:`, err);
+    }
+    try {
+      await this.fallback.deleteSnippet(id);
+    } catch (err) {
+      console.error(`⚠️ Failed to delete snippet from cache ${id}:`, err);
+    }
   }
 }
 
-module.exports = new StorageManager();0
+module.exports = new StorageManager();

@@ -1,6 +1,7 @@
 {
   "name": "snipshare-vscode-plugin",
   "displayName": "SnipShare",
+  "publisher": "suryansh-it",
   "description": "Zero-cost, GitHub Gists–powered snippet manager",
   "version": "0.0.1",
   "engines": {
@@ -15,6 +16,10 @@
   },
   "contributes": {
     "commands": [
+          {
+      "command": "snipshare.test",
+      "title": "SnipShare: Test"
+    },
       {
         "command": "snipshare.searchSnippet",
         "title": "SnipShare: Search Snippet",
@@ -29,7 +34,9 @@
   },
 
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+      "onCommand:snipshare.searchSnippet",
+  "onCommand:snipshare.createSnippet"
   
   
 ],

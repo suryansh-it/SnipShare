@@ -1,6 +1,3 @@
-/**
- * Simple IndexedDB wrapper for storing snippets
- */
 class IndexedDBService {
   constructor(dbName = 'SnipShareDB', storeName = 'snippets') {
     this.dbName = dbName;

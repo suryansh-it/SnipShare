@@ -12,10 +12,6 @@ class GistService {
     this.apiBase = 'https://api.github.com';
   }
 
-  /**
-   * List user gists
-   * @returns {Promise<Gist[]>}
-   */
   async listGists() {
     const res = await fetch(`${this.apiBase}/gists`, {
       headers: { Authorization: `token ${this.token}` }
@@ -24,11 +20,6 @@ class GistService {
     return res.json();
   }
 
-  /**
-   * Create a new gist
-   * @param {{description: string, files: Record<string,{content:string}>, public?: boolean}} body
-   * @returns {Promise<Gist>}
-   */
   async createGist(body) {
     const res = await fetch(`${this.apiBase}/gists`, {
       method: 'POST',
@@ -42,12 +33,6 @@ class GistService {
     return res.json();
   }
 
-  /**
-   * Update an existing gist
-   * @param {string} id
-   * @param {{description?: string, files?: Record<string,{content:string}>}} body
-   * @returns {Promise<Gist>}
-   */
   async updateGist(id, body) {
     const res = await fetch(`${this.apiBase}/gists/${id}`, {
       method: 'PATCH',
@@ -61,11 +46,6 @@ class GistService {
     return res.json();
   }
 
-  /**
-   * Delete a gist
-   * @param {string} id
-   * @returns {Promise<void>}
-   */
   async deleteGist(id) {
     const res = await fetch(`${this.apiBase}/gists/${id}`, {
       method: 'DELETE',
@@ -75,7 +55,6 @@ class GistService {
   }
 }
 
-// Retrieve token from extension configuration or globalState
 const config = vscode.workspace.getConfiguration('snipshare');
 const token = config.get('githubToken') || '';
 module.exports = new GistService(token);
