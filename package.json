@@ -34,8 +34,9 @@
   },
 
   "activationEvents": [
-    "onStartupFinished",
-      "onCommand:snipshare.searchSnippet",
+    
+  "onCommand:snipshare.test",
+  "onCommand:snipshare.searchSnippet",
   "onCommand:snipshare.createSnippet"
   
   
