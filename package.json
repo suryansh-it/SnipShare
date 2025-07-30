@@ -15,6 +15,17 @@
     "test": "echo 'No tests yet'"
   },
   "contributes": {
+     "configuration": {
+    "type": "object",
+    "title": "SnipShare Settings",
+    "properties": {
+      "snipshare.githubToken": {
+        "type": "string",
+        "description": "GitHub Personal Access Token with gist scope",
+        "default": ""
+      }
+    }
+  },
     "commands": [
           {
       "command": "snipshare.test",
