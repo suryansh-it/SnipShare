@@ -66,30 +66,35 @@ async function registerCommands(context) {
     'snipshare.createSnippet',
     async () => {
       console.log('➕ [Create] starting');
-      const desc = await vscode.window.showInputBox({
-        prompt: '📝 Snippet description'
-      });
-      if (!desc) return;
+    // 1) Ask for a title
+    const title = await vscode.window.showInputBox({
+      prompt: '📝 Snippet title'
+    });
+    if (!title) return;
 
-      const content = await vscode.window.showInputBox({
-        prompt: '💾 Snippet content'
-      });
+
+     // 2) Ask for the snippet content/body
+     const content = await vscode.window.showInputBox({
+       prompt: '💾 Snippet content'
+     });
+
+
       if (content == null) return;
 
-      console.log(`➕ [Create] desc=${desc}`);
-      let gist;
-      try {
-        gist = await storage.create({
-          description: desc,
-          files: { 'snippet.txt': { content } }
-        });
+           console.log(`➕ [Create] title=${title}`);
+     let gist;
+     try {
+       gist = await storage.create({
+         description: title,
+         files: { 'snippet.txt': { content } }
+       });
       } catch (err) {
         console.error('❌ storage.create failed:', err);
         return vscode.window.showErrorMessage('Could not create snippet');
       }
 
       vscode.window.showInformationMessage(
-        `Created snippet "${desc}" (Gist ID: ${gist.id})`
+        `Created snippet "${title}" (Gist ID: ${gist.id})`
       );
     }
   );
