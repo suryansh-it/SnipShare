@@ -1,11 +1,12 @@
 // src/services/gistService.js
+
 const vscode = require('vscode');
 const fetch = require('node-fetch');
 
 const API_BASE = 'https://api.github.com';
 
 /**
- * Grab the PAT from VS Code settings each time.
+ * Grab the PAT from VS Code settings each time.
  */
 function getToken() {
   const token = vscode.workspace
@@ -47,4 +48,18 @@ async function createGist(body) {
   return res.json();
 }
 
-module.exports = { listGists, createGist };
+/**
+ * Fetch a single Gist (with full file contents)
+ * @param {string} id
+ * @returns {Promise<Object>}
+ */
+async function getGist(id) {
+  const token = getToken();
+  const res = await fetch(`${API_BASE}/gists/${id}`, {
+    headers: { Authorization: `token ${token}` }
+  });
+  if (!res.ok) throw new Error(`GitHub API getGist error ${res.status}`);
+  return res.json();
+}
+
+module.exports = { listGists, createGist, getGist };
