@@ -15,6 +15,34 @@
     "test": "echo 'No tests yet'"
   },
   "contributes": {
+      
+  "keybindings": [
+    {
+      "key": "ctrlaltc",
+      "command": "snipshare.createSnippet",
+      "when": "editorTextFocus"
+    },
+    {
+      "key": "ctrlalts",
+      "command": "snipshare.searchSnippet",
+      "when": "editorTextFocus"
+    }
+  ],
+
+  "menus": {
+    "editor/context": [
+      {
+        "command": "snipshare.createSnippet",
+        "when": "editorTextFocus",
+        "group": "navigation"
+      },
+      {
+        "command": "snipshare.searchSnippet",
+        "when": "editorTextFocus",
+        "group": "navigation"
+      }
+    ]
+  },
      "configuration": {
     "type": "object",
     "title": "SnipShare Settings",
@@ -27,6 +55,11 @@
     }
   },
     "commands": [
+      {
+      "command": "snipshare.help",
+      "title": "SnipShare: Help",
+      "category": "SnipShare"
+    },
           {
       "command": "snipshare.test",
       "title": "SnipShare: Test"
@@ -46,6 +79,7 @@
 
   "activationEvents": [
     
+  "onCommand:snipshare.help",
   "onCommand:snipshare.test",
   "onCommand:snipshare.searchSnippet",
   "onCommand:snipshare.createSnippet"

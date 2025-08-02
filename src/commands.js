@@ -5,8 +5,24 @@ const storage = require('./services/storageManager');
 const { getGist } = require('./services/gistService');
 const debugChannel = vscode.window.createOutputChannel('SnipShare Debug');
 
+const path = require('path');
+const fs = require('fs');
+
 async function registerCommands(context) {
   debugChannel.appendLine('➡️ registerCommands() start');
+
+
+
+const helpCmd = vscode.commands.registerCommand('snipshare.help', async () => {
+  const readmePath = path.join(__dirname, '..', 'README.md');
+  if (!fs.existsSync(readmePath)) {
+    return vscode.window.showErrorMessage('README.md not found in extension folder');
+  }
+  const doc = await vscode.workspace.openTextDocument(readmePath);
+  await vscode.window.showTextDocument(doc, { preview: false });
+});
+context.subscriptions.push(helpCmd);
+
 
   // Test Command
   const testCmd = vscode.commands.registerCommand('snipshare.test', () => {
