@@ -17,15 +17,29 @@ async function registerCommands(context) {
 
  // 2) Search Snippet
   const searchCmd = vscode.commands.registerCommand(
-    'snipshare.searchSnippet',
-    async () => {
-      console.log('🔍 [Search] starting');
-      let editor = vscode.window.activeTextEditor;
+  'snipshare.searchSnippet',
+  async () => {
+    console.log('🔍 [Search] starting');
+    let editor = vscode.window.activeTextEditor;
 
-      const query = await vscode.window.showInputBox({
+    // 1) If user has selected text, use that as the query
+    let prefill = '';
+    if (editor && !editor.selection.isEmpty) {
+      prefill = editor.document.getText(editor.selection);
+      console.log(`🔍 [Search] using selected text: "${prefill}"`);
+    }
+
+    // 2) If we got something, skip the prompt; else ask
+    let query = prefill;
+    if (!query) {
+      query = await vscode.window.showInputBox({
         prompt: '🔍 Search for a snippet (by description)'
       });
-      if (!query) return;
+    }
+    if (!query) {
+      console.log('🔍 [Search] canceled');
+      return;
+    }
 
       let results;
       try {
@@ -89,37 +103,42 @@ async function registerCommands(context) {
   context.subscriptions.push(searchCmd);
 
   // Create Snippet
-  const createCmd = vscode.commands.registerCommand(
+   const createCmd = vscode.commands.registerCommand(
     'snipshare.createSnippet',
     async () => {
-      debugChannel.appendLine('➕ [Create] starting');
+      console.log('➕ [Create] starting');
 
       // 1) Title
       const title = await vscode.window.showInputBox({ prompt: '📝 Snippet title' });
-      debugChannel.appendLine(`➕ [Create] title="${title}"`);
       if (!title) return;
 
-      // 2) Content
+      // 2) Grab content: selection or whole document
       const editor = vscode.window.activeTextEditor;
       let content = '';
-      if (editor && !editor.selection.isEmpty) {
-        content = editor.document.getText(editor.selection);
-        debugChannel.appendLine(`➕ [Create] using selection (length=${content.length})`);
+      if (editor) {
+        if (!editor.selection.isEmpty) {
+          // use only the selected text
+          content = editor.document.getText(editor.selection);
+          console.log(`➕ [Create] using selected text length=${content.length}`);
+        } else {
+          // use the entire document
+          content = editor.document.getText();
+          console.log(`➕ [Create] using entire document length=${content.length}`);
+        }
       } else {
-        const input = await vscode.window.showInputBox({ prompt: '💾 Snippet content' });
-        content = input || '';
-        debugChannel.appendLine(`➕ [Create] input content length=${content.length}`);
-        if (!content) return;
+        return vscode.window.showErrorMessage('No active editor to capture content from');
       }
 
-      vscode.window.showInformationMessage(`(DEBUG) saving snippet with content: ${content.slice(0,40)}…`);
-
+      // 3) Create the snippet
       let snippet;
       try {
-        snippet = await storage.create({ description: title, files: { 'snippet.txt': { content } } });
-        debugChannel.appendLine(`✔️ storage.create succeeded, id=${snippet.id}`);
+        snippet = await storage.create({
+          description: title,
+          files: { 'snippet.txt': { content } }
+        });
+        console.log(`✔️ storage.create succeeded, id=${snippet.id}`);
       } catch (err) {
-        debugChannel.appendLine(`❌ storage.create failed: ${err}`);
+        console.error('❌ storage.create failed:', err);
         return vscode.window.showErrorMessage('Could not create snippet');
       }
 
