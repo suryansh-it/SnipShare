@@ -31,6 +31,39 @@ context.subscriptions.push(helpCmd);
   });
   context.subscriptions.push(testCmd);
 
+
+// register the Setup command 
+const setupCmd = vscode.commands.registerCommand('snipshare.setup', async () => {
+  const pick = await vscode.window.showQuickPick(
+    ['Paste Personal Access Token (PAT)', 'Use Device Flow (GitHub OAuth)'],
+    { placeHolder: 'Choose authentication method for SnipShare' }
+  );
+  if (!pick) return;
+
+  if (pick === 'Paste Personal Access Token (PAT)') {
+    const input = await vscode.window.showInputBox({
+      prompt: 'Paste your GitHub Personal Access Token (needs gist scope)',
+      ignoreFocusOut: true,
+      password: true
+    });
+    if (!input) return;
+    // Save token in both user settings and globalState
+    await vscode.workspace.getConfiguration('snipshare').update('githubToken', input, vscode.ConfigurationTarget.Global);
+    await context.globalState.update('githubToken', input);
+    vscode.window.showInformationMessage('SnipShare: Token saved — you are authenticated.');
+  } else {
+    // Device flow - requires client id env var or prior setup
+    try {
+      await authenticate(context);
+    } catch (err) {
+      vscode.window.showErrorMessage('Device Flow failed: ' + (err.message || err));
+    }
+  }
+});
+context.subscriptions.push(setupCmd);
+
+
+
  // 2) Search Snippet
   const searchCmd = vscode.commands.registerCommand(
   'snipshare.searchSnippet',

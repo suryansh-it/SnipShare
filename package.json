@@ -18,12 +18,12 @@
       
   "keybindings": [
     {
-      "key": "ctrlaltc",
+      "key": "ctrl+alt+c",
       "command": "snipshare.createSnippet",
       "when": "editorTextFocus"
     },
     {
-      "key": "ctrlalts",
+      "key": "ctrl+alt+s",
       "command": "snipshare.searchSnippet",
       "when": "editorTextFocus"
     }
