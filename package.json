@@ -64,6 +64,11 @@
       "command": "snipshare.test",
       "title": "SnipShare: Test"
     },
+    {
+  "command": "snipshare.setup",
+  "title": "SnipShare: Setup",
+  "category": "SnipShare"
+},
       {
         "command": "snipshare.searchSnippet",
         "title": "SnipShare: Search Snippet",
@@ -81,6 +86,7 @@
     
   "onCommand:snipshare.help",
   "onCommand:snipshare.test",
+  "onCommand:snipshare.setup",
   "onCommand:snipshare.searchSnippet",
   "onCommand:snipshare.createSnippet"
   
