@@ -3,11 +3,11 @@
   "displayName": "SnipShare",
   "publisher": "suryansh-it",
   "description": "Zero-cost, GitHub Gists–powered snippet manager",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "icon": "assets/icon.png",
   "engines": {
     "vscode": "^1.60.0"
   },
- 
   "main": "./src/extension.js",
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -15,84 +15,49 @@
     "test": "echo 'No tests yet'"
   },
   "contributes": {
-      
-  "keybindings": [
-    {
-      "key": "ctrl+alt+c",
-      "command": "snipshare.createSnippet",
-      "when": "editorTextFocus"
-    },
-    {
-      "key": "ctrl+alt+s",
-      "command": "snipshare.searchSnippet",
-      "when": "editorTextFocus"
-    }
-  ],
-
-  "menus": {
-    "editor/context": [
-      {
-        "command": "snipshare.createSnippet",
-        "when": "editorTextFocus",
-        "group": "navigation"
-      },
-      {
-        "command": "snipshare.searchSnippet",
-        "when": "editorTextFocus",
-        "group": "navigation"
-      }
-    ]
-  },
-     "configuration": {
-    "type": "object",
-    "title": "SnipShare Settings",
-    "properties": {
-      "snipshare.githubToken": {
-        "type": "string",
-        "description": "GitHub Personal Access Token with gist scope",
-        "default": ""
-      }
-    }
-  },
     "commands": [
-      {
-      "command": "snipshare.help",
-      "title": "SnipShare: Help",
-      "category": "SnipShare"
+      { "command": "snipshare.help", "title": "SnipShare: Help", "category": "SnipShare" },
+      { "command": "snipshare.test", "title": "SnipShare: Test", "category": "SnipShare" },
+      { "command": "snipshare.setup", "title": "SnipShare: Setup", "category": "SnipShare" },
+      { "command": "snipshare.createSnippet", "title": "SnipShare: Create Snippet", "category": "SnipShare" },
+      { "command": "snipshare.searchSnippet", "title": "SnipShare: Search Snippet", "category": "SnipShare" },
+      { "command": "snipshare.shareSnippet", "title": "SnipShare: Share Snippet", "category": "SnipShare" },
+      { "command": "snipshare.createPack", "title": "SnipShare: Create Pack", "category": "SnipShare" },
+      { "command": "snipshare.importPack", "title": "SnipShare: Import Pack", "category": "SnipShare" }
+    ],
+    "keybindings": [
+      { "key": "ctrl+alt+c", "command": "snipshare.createSnippet", "when": "editorTextFocus" },
+      { "key": "ctrl+alt+s", "command": "snipshare.searchSnippet", "when": "editorTextFocus" }
+    ],
+    "menus": {
+      "editor/context": [
+        { "command": "snipshare.createSnippet", "when": "editorHasSelection", "group": "navigation" },
+        { "command": "snipshare.searchSnippet", "when": "editorTextFocus", "group": "navigation" },
+        { "command": "snipshare.shareSnippet", "when": "editorTextFocus", "group": "navigation" }
+      ]
     },
-          {
-      "command": "snipshare.test",
-      "title": "SnipShare: Test"
-    },
-    {
-  "command": "snipshare.setup",
-  "title": "SnipShare: Setup",
-  "category": "SnipShare"
-},
-      {
-        "command": "snipshare.searchSnippet",
-        "title": "SnipShare: Search Snippet",
-        "category": "SnipShare"
-      },
-      {
-        "command": "snipshare.createSnippet",
-        "title": "SnipShare: Create Snippet",
-        "category": "SnipShare"
+    "configuration": {
+      "type": "object",
+      "title": "SnipShare Settings",
+      "properties": {
+        "snipshare.githubToken": {
+          "type": "string",
+          "description": "GitHub Personal Access Token with `gist` scope",
+          "default": ""
+        }
       }
-    ]
+    }
   },
-
   "activationEvents": [
-    
-  "onCommand:snipshare.help",
-  "onCommand:snipshare.test",
-  "onCommand:snipshare.setup",
-  "onCommand:snipshare.searchSnippet",
-  "onCommand:snipshare.createSnippet"
-  
-  
-],
-
+    "onCommand:snipshare.help",
+    "onCommand:snipshare.test",
+    "onCommand:snipshare.setup",
+    "onCommand:snipshare.searchSnippet",
+    "onCommand:snipshare.createSnippet",
+    "onCommand:snipshare.shareSnippet",
+    "onCommand:snipshare.createPack",
+    "onCommand:snipshare.importPack"
+  ],
   "dependencies": {
     "chai": "^5.2.1",
     "dotenv": "^17.2.0",
