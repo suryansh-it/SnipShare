@@ -3,7 +3,7 @@
   "displayName": "SnipShare — Gist Snippets",
   "publisher": "suryansh-it",
   "description": "Zero-cost, GitHub Gists–powered snippet manager",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "icon": "assets/icon.png",
   "engines": {
     "vscode": "^1.60.0"
