@@ -14,26 +14,86 @@
     "compile": "echo 'No compilation needed for JS'",
     "test": "echo 'No tests yet'"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suryansh-it/SnipShare.git"
+  },
+  "bugs": {
+    "url": "https://github.com/suryansh-it/SnipShare/issues"
+  },
+  "homepage": "https://github.com/suryansh-it/SnipShare#readme",
   "contributes": {
     "commands": [
-      { "command": "snipshare.help", "title": "SnipShare: Help", "category": "SnipShare" },
-      { "command": "snipshare.test", "title": "SnipShare: Test", "category": "SnipShare" },
-      { "command": "snipshare.setup", "title": "SnipShare: Setup", "category": "SnipShare" },
-      { "command": "snipshare.createSnippet", "title": "SnipShare: Create Snippet", "category": "SnipShare" },
-      { "command": "snipshare.searchSnippet", "title": "SnipShare: Search Snippet", "category": "SnipShare" },
-      { "command": "snipshare.shareSnippet", "title": "SnipShare: Share Snippet", "category": "SnipShare" },
-      { "command": "snipshare.createPack", "title": "SnipShare: Create Pack", "category": "SnipShare" },
-      { "command": "snipshare.importPack", "title": "SnipShare: Import Pack", "category": "SnipShare" }
+      {
+        "command": "snipshare.help",
+        "title": "SnipShare: Help",
+        "category": "SnipShare"
+      },
+      {
+        "command": "snipshare.test",
+        "title": "SnipShare: Test",
+        "category": "SnipShare"
+      },
+      {
+        "command": "snipshare.setup",
+        "title": "SnipShare: Setup",
+        "category": "SnipShare"
+      },
+      {
+        "command": "snipshare.createSnippet",
+        "title": "SnipShare: Create Snippet",
+        "category": "SnipShare"
+      },
+      {
+        "command": "snipshare.searchSnippet",
+        "title": "SnipShare: Search Snippet",
+        "category": "SnipShare"
+      },
+      {
+        "command": "snipshare.shareSnippet",
+        "title": "SnipShare: Share Snippet",
+        "category": "SnipShare"
+      },
+      {
+        "command": "snipshare.createPack",
+        "title": "SnipShare: Create Pack",
+        "category": "SnipShare"
+      },
+      {
+        "command": "snipshare.importPack",
+        "title": "SnipShare: Import Pack",
+        "category": "SnipShare"
+      }
     ],
     "keybindings": [
-      { "key": "ctrl+alt+c", "command": "snipshare.createSnippet", "when": "editorTextFocus" },
-      { "key": "ctrl+alt+s", "command": "snipshare.searchSnippet", "when": "editorTextFocus" }
+      {
+        "key": "ctrl+alt+c",
+        "command": "snipshare.createSnippet",
+        "when": "editorTextFocus"
+      },
+      {
+        "key": "ctrl+alt+s",
+        "command": "snipshare.searchSnippet",
+        "when": "editorTextFocus"
+      }
     ],
     "menus": {
       "editor/context": [
-        { "command": "snipshare.createSnippet", "when": "editorHasSelection", "group": "navigation" },
-        { "command": "snipshare.searchSnippet", "when": "editorTextFocus", "group": "navigation" },
-        { "command": "snipshare.shareSnippet", "when": "editorTextFocus", "group": "navigation" }
+        {
+          "command": "snipshare.createSnippet",
+          "when": "editorHasSelection",
+          "group": "navigation"
+        },
+        {
+          "command": "snipshare.searchSnippet",
+          "when": "editorTextFocus",
+          "group": "navigation"
+        },
+        {
+          "command": "snipshare.shareSnippet",
+          "when": "editorTextFocus",
+          "group": "navigation"
+        }
       ]
     },
     "configuration": {
@@ -63,7 +123,9 @@
     "dotenv": "^17.2.0",
     "mocha": "^11.7.1",
     "node-fetch": "^2.7.0",
-    "sinon": "^21.0.0",
+    "sinon": "^21.0.0"
+  },
+  "devDependencies": {
     "vscode": "^1.1.37"
   }
 }

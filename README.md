@@ -52,12 +52,19 @@ The extension stores the PAT in your user settings (`snipshare.githubToken`) and
 
 > Behavior: when creating, SnipShare will use your selected text. If nothing is selected, it captures the entire active document.
 
+![Create snippet flow](./images/create-1.png)
+
+![Create snippet flow](./images/create-2.png)
+
 ### Search & insert
 
 1. Click the editor where you want the snippet inserted (cursor must be active).
 2. Optionally select some text — SnipShare will use the selection as the search query automatically.
 3. Run `SnipShare: Search Snippet` (or press `Ctrl+Alt+S`).
 4. Choose a snippet from the QuickPick — it will be inserted at your cursor.
+
+![Search snippet flow](./images/search-1.png)
+![Search snippet flow](./images/search-2.png)
 
 ### Share a snippet
 
