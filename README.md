@@ -1,5 +1,8 @@
-````markdown
 # SnipShare — VS Code Snippet Manager (v1)
+
+[![Marketplace](https://img.shields.io/visual-studio-marketplace/v/suryansh-it.snipshare-vscode-plugin?label=marketplace)](https://marketplace.visualstudio.com/items?itemName=suryansh-it.snipshare-vscode-plugin)
+[![Installs](https://img.shields.io/visual-studio-marketplace/i/suryansh-it.snipshare-vscode-plugin)](https://marketplace.visualstudio.com/items?itemName=suryansh-it.snipshare-vscode-plugin)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](./LICENSE)
 
 **Short description**  
 Save, search, and share **individual snippets** and **packs** via GitHub Gists — create packs, import packs, and paste snippets back into your editor in one keystroke.
@@ -52,9 +55,18 @@ The extension stores the PAT in your user settings (`snipshare.githubToken`) and
 
 > Behavior: when creating, SnipShare will use your selected text. If nothing is selected, it captures the entire active document.
 
-![Create snippet flow](./images/create-1.png)
+## Create a snippet
 
-![Create snippet flow](./images/create-2.png)
+<div style="display:flex; gap:12px; align-items:flex-start;">
+  <figure style="margin:0;">
+    <img src="./images/create-2.png" alt="Create snippet - select code" width="480"/>
+    <figcaption style="font-size:smaller">Select code and run command</figcaption>
+  </figure>
+  <figure style="margin:0;">
+    <img src="./images/create-1.png" alt="Create snippet - gist saved" width="480"/>
+    <figcaption style="font-size:smaller">Snippet saved as private Gist</figcaption>
+  </figure>
+</div>
 
 ### Search & insert
 
@@ -63,8 +75,16 @@ The extension stores the PAT in your user settings (`snipshare.githubToken`) and
 3. Run `SnipShare: Search Snippet` (or press `Ctrl+Alt+S`).
 4. Choose a snippet from the QuickPick — it will be inserted at your cursor.
 
-![Search snippet flow](./images/search-1.png)
-![Search snippet flow](./images/search-2.png)
+<div style="display:flex; gap:12px; align-items:flex-start;">
+  <figure style="margin:0;">
+    <img src="./images/search-1.png" alt="Search snippet - quickpick" width="480"/>
+    <figcaption style="font-size:smaller">Search results QuickPick</figcaption>
+  </figure>
+  <figure style="margin:0;">
+    <img src="./images/search-2.png" alt="Search snippet - inserted" width="480"/>
+    <figcaption style="font-size:smaller">Snippet inserted at cursor</figcaption>
+  </figure>
+</div>
 
 ### Share a snippet
 
@@ -94,7 +114,6 @@ The extension stores the PAT in your user settings (`snipshare.githubToken`) and
   ]
 }
 ```
-````
 
 ---
 
@@ -178,10 +197,3 @@ Created by **suryansh-it**
 - The extension stores your PAT locally in user settings and the extension `globalState`.
 - Snippet content is sent only to GitHub (as Gist content) and not to any other third party.
 - No analytic tracking or telemetry is collected by default (you can add this later with explicit opt-in).
-
-```
-
----
-
-
-```
