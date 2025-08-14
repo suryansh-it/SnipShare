@@ -1,6 +1,6 @@
 {
   "name": "snipshare-vscode-plugin",
-  "displayName": "SnipShare",
+  "displayName": "SnipShare — Gist Snippets",
   "publisher": "suryansh-it",
   "description": "Zero-cost, GitHub Gists–powered snippet manager",
   "version": "0.2.0",
