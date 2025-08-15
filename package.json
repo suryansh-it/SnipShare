@@ -12,7 +12,7 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "echo 'No compilation needed for JS'",
-    "test": "echo 'No tests yet'"
+    "test": "node ./test/runTest.js"
   },
   "repository": {
     "type": "git",
@@ -119,13 +119,15 @@
     "onCommand:snipshare.importPack"
   ],
   "dependencies": {
-    "chai": "^5.2.1",
     "dotenv": "^17.2.0",
-    "mocha": "^11.7.1",
     "node-fetch": "^2.7.0",
     "sinon": "^21.0.0"
   },
   "devDependencies": {
+    "@vscode/test-electron": "^2.5.2",
+    "chai": "^5.2.1",
+    "glob": "^11.0.3",
+    "mocha": "^11.7.1",
     "vscode": "^1.1.37"
   }
 }

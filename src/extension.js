@@ -38,6 +38,10 @@
 
 // src/extension.js
 // src/extension.js (CommonJS)
+
+
+// src/extension.js (CommonJS)
+
 console.log('🔧 SnipShare extension.js loaded');
 const vscode = require('vscode');
 const { registerCommands } = require('./commands');
@@ -78,4 +82,3 @@ function deactivate() {
 }
 
 module.exports = { activate, deactivate };
-
