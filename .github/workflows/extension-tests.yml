@@ -27,7 +27,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Xvfb on Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get update && sudo apt-get install -y xvfb libgtk-3-0 libxss1 libasound2 libnss3 libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 libxkbcommon0 libgbm1
+
       - name: Run extension tests
-        run: npm test
+        run: |
+          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            xvfb-run -a npm test
+          else
+            npm test
+          fi
         env:
           CI: true
