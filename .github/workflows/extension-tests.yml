@@ -29,14 +29,17 @@ jobs:
 
       - name: Install Xvfb on Linux
         if: matrix.os == 'ubuntu-latest'
-        run: sudo apt-get update && sudo apt-get install -y xvfb libgtk-3-0 libxss1 libasound2 libnss3 libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 libxkbcommon0 libgbm1
+        run: sudo apt-get update && sudo apt-get install -y xvfb libgtk-3-0 libxss1 libasound2t64 libnss3 libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 libxkbcommon0 libgbm1
 
-      - name: Run extension tests
-        run: |
-          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
-            xvfb-run -a npm test
-          else
-            npm test
-          fi
+      - name: Run extension tests on Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: xvfb-run -a npm test
+        shell: bash
+        env:
+          CI: true
+
+      - name: Run extension tests on Windows/macOS
+        if: matrix.os != 'ubuntu-latest'
+        run: npm test
         env:
           CI: true
