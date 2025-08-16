@@ -14,7 +14,8 @@
     "prepublish:prod": "npm install",
     "build": "node esbuild.js",
     "compile": "echo 'No compilation needed for JS'",
-    "test": "node ./test/runTest.js"
+    "test": "node ./test/runTest.js",
+    "pretest": "npm run build" 
   },
   "repository": {
     "type": "git",
