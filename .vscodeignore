@@ -1,17 +1,38 @@
-# Files and folders to ignore when packaging the extension (vsce will use this)
-node_modules/
+# Folders to exclude
+.github/
 .vscode/
 test/
+.vscode-test/
+.vscode-test-*/
+.vscode-test-user-data/
+dist/
+lib/
+build/
 coverage/
+.nyc_output/
+.sourcemaps/
+.cache/
+.temp/
+src/
+node_modules/
+
+
+# Files to exclude
+.gitignore
+.gitattributes
+*.vsix
 *.log
 .env
-.sourcemaps/
-.vsix
 .DS_Store
-.git/
-.gitignore
+Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-# Local development screenshots / drafts - keep final images only if desired
+*.code-workspace
+*.pem
+*.key
+esbuild.js
+
+
+# Specific files/folders that should not be included
 images/placeholder-*
