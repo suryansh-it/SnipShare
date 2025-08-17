@@ -22,23 +22,23 @@ SnipShare is a lightweight VS Code extension that helps you capture code from yo
 - Simple PAT-based authentication (no OAuth device flow required in the MVP)
 - Local cache (VS Code `globalState`) for faster access and offline reads
 
-
 ## How to get a GitHub PAT (Personal Access Token)
 
 1. Go to GitHub: **Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token**.
-2. Give it a descriptive name: e.g. `SnipSync - VS Code`.
-3. **Expiration (recommended):** choose a sensible expiry (30/90 days) if you prefer rotating tokens.
+2. Give it a descriptive name: e.g. `SnipShare - VS Code`.
+3. **Expiration (recommended):** choose a sensible expiry (30/90 days) if you prefer rotating tokens or choose custom/no expiration.
 4. **Scopes:** check **`gist`** (this is required). You do **not** need to give `repo` scope unless you plan to publish to a team repo.
 5. Click **Generate token** and copy the token.
 
-**Add PAT to SnipSync**
-- Preferred: run `Ctrl+Shift+P` → `SnipSync: Setup` and paste the PAT when asked.
+**Add PAT to SnipShare**
+
+- Preferred: run `Ctrl+Shift+P` → `SnipShare: Setup` and paste the PAT when asked.
 - Manual (Settings JSON): open `Preferences: Open Settings (JSON)` and add:
   ```json
   {
-    "snipsync.githubToken": "ghp_your_token_here"
+    "snipshare.githubToken": "ghp_your_token_here"
   }
-
+  ```
 
 ---
 
